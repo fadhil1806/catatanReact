@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script type="text/babel">
+      function MyApp() {
+        const [likes, setLikes] = React.useState(0);
+
+        function addLikes() {
+          setLikes(likes + 1);
+        }
+        function reduceLikes() {
+          setLikes(likes - 1);
+        }
+
+        function resetLikes() {
+          setLikes(0);
+        }
+
+        function Button({ onclick, text, disabled }) {
+          return (
+            <button onClick={onclick} disabled={disabled}>
+              {text}
+            </button>
+          );
+        }
+
+        return (
+          <>
+            <div style={{ display: "flex", gap: "20px" }}>
+              <Button onclick={reduceLikes} text="-" />
+              <p>{likes}</p>
+
+              <Button onclick={addLikes} text="+" />
+            </div>
+            <div>
+              <Button
+                onclick={resetLikes}
+                disabled={likes >= 4 ? setLikes("done") : likes <= -1  ? setLikes('Tidak bisa') : false}
+                text="reset"
+              ></Button>
+            </div>
+          </>
+        );
+      }
+
+      const container = document.getElementById("container");
+      const root = ReactDOM.createRoot(container);
+      root.render(<MyApp />);
+    </script>
+  </body>
+</html>

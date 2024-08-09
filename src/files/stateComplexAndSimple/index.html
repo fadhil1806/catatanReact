@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Belajar React day-1</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const students = ["mirza", "Bakti", "sukaryana"];
+
+      function MyApp({ author }) {
+        return (
+          <>
+            <h1
+              style={{
+                color: "blue",
+              }}
+            >
+              Belajar React manual bareng pak {author ? author : "Fadhil"} 🌍
+            </h1>
+            <button
+              style={{
+                backgroundColor: "red",
+                color: "white",
+                padding: "10px",
+                border: "none",
+                cursor: "pointer",
+                borderRadius: "10px",
+              }}
+              onClick={(e) => alert("ok")}
+            >
+              Semangat!
+            </button>
+          </>
+        );
+      }
+
+      function HomePage() {
+        const [likes, setLikes] = React.useState(0);
+
+        function handleClick() {
+          setLikes(likes + 1);
+        }
+
+        return (
+          <>
+            <MyApp author="mirza" />
+            <MyApp />
+
+            <ul>
+              {students.map((student) => (
+                <MyApp key={student} author={student}/>
+              ))}
+            </ul>
+            <button onClick={handleClick}>Like ({likes})</button>
+          </>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<HomePage />);
+    </script>
+  </body>
+</html>
